@@ -6,6 +6,12 @@ import "./Header.css";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    logOut();
+    // .then(() => {})
+    // .catch((error) => console.error(error));
+  };
   const menuItems = (
     <>
       <li>
@@ -17,12 +23,13 @@ const Header = () => {
       </li>
       <>
         {user?.uid ? (
-          <button onClick={logOut} className="btn">
+          <button onClick={handleSignOut} className="btn">
             Logout
           </button>
         ) : (
           <li>
             <Link to="/login">Login</Link>
+            <Link to="/signup">Sign up</Link>
           </li>
         )}
       </>

@@ -3,19 +3,31 @@ import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import OrdersRow from "./OrdersRow";
 
 const Orders = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`)
-      .then((res) => res.json())
+    fetch(
+      `https://saiful-car-servicing-server.vercel.app/orders?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("car-token")}`,
+        },
+      }
+    )
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json();
+      })
       .then((data) => setOrders(data));
-  }, [user?.email]);
+  }, [user?.email, logOut]);
 
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure? want to delete this item?");
     if (proceed) {
-      fetch(`http://localhost:5000/orders/${id}`, {
+      fetch(`https://saiful-car-servicing-server.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -30,7 +42,7 @@ const Orders = () => {
   };
 
   const handleUpdate = (id) => {
-    fetch(`http://localhost:5000/orders/${id}`, {
+    fetch(`https://saiful-car-servicing-server.vercel.app/orders/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -52,16 +64,18 @@ const Orders = () => {
 
   return (
     <div>
-      <h1 className="text-3xl">orders {orders.length}</h1>
+      <h1 className="text-3xl">You have {orders.length} orders</h1>
 
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th>Delete</th>
+              <th>Service Name & Price</th>
+              <th>Name & Email</th>
+              <th>Phone</th>
+              <th>Message</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>

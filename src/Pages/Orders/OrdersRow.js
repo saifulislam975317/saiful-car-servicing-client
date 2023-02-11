@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 const OrdersRow = ({ order, handleDelete, handleUpdate }) => {
-  const { _id, serviceName, price, customer, email, phone, service, status } =
-    order;
+  const {
+    _id,
+    serviceName,
+    price,
+    customer,
+    email,
+    phone,
+    service,
+    status,
+    message,
+  } = order;
   const [orderService, setOrderService] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${service}`)
+    fetch(`https://saiful-car-servicing-server.vercel.app/services/${service}`)
       .then((res) => res.json())
       .then((data) => setOrderService(data));
   }, [service]);
@@ -58,6 +67,7 @@ const OrdersRow = ({ order, handleDelete, handleUpdate }) => {
         <span className="badge badge-ghost badge-sm">{email}</span>
       </td>
       <td>{phone}</td>
+      <td>{message}</td>
       <th>
         <button
           onClick={() => handleUpdate(_id)}

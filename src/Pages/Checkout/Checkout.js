@@ -24,7 +24,7 @@ const Checkout = () => {
       message,
     };
 
-    fetch("http://localhost:5000/orders", {
+    fetch("https://saiful-car-servicing-server.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -55,6 +55,7 @@ const Checkout = () => {
             type="text"
             placeholder="First Name"
             name="firstName"
+            defaultValue={user?.displayName}
             className="input input-bordered w-full "
           />
           <input

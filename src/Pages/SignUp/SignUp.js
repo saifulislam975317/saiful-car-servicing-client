@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState(null);
+  const { createUser, updateUserName, loginWithGoogle } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSignUP = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,10 +15,65 @@ const SignUp = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
+    if (password !== confirmPassword) {
+      setError("Password didn't match. Please try again");
+      return;
+    }
+    if (password.length < 8) {
+      setError("Password should be at least 8 characters");
+      return;
+    } else {
+      setError("");
+    }
+    updateUserName(name)
+      .then(() => {})
+      .catch((error) => console.error(error));
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
+        updateUserName(name);
+
+        const currentUser = {
+          email: user.email,
+        };
+        fetch("https://saiful-car-servicing-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("car-token", data.token);
+          });
+
+        form.reset();
+        navigate("/");
         console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
+  const handleGoogleSignUP = () => {
+    loginWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        const currentUser = {
+          email: user.email,
+        };
+        fetch("https://saiful-car-servicing-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("car-token", data.token);
+          });
+        navigate("/");
       })
       .catch((error) => console.error(error));
   };
@@ -73,6 +131,7 @@ const SignUp = () => {
                   placeholder="Confirm password"
                   name="confirmPassword"
                   className="input input-bordered"
+                  required
                 />
               </div>
               <div className="form-control mt-6">
@@ -82,9 +141,16 @@ const SignUp = () => {
                   value="signup"
                 />
               </div>
+              <span className="text-lg text-red-700 text-center">{error}</span>
             </form>
+            <span className="text-center text-2xl">
+              <small>or</small>
+            </span>
+            <button onClick={handleGoogleSignUP} className="btn  btn-warning">
+              Sign up with Google
+            </button>
             <p className="text-center pb-10">
-              Have an account? please
+              already have an account? please
               <Link to="/login" className="text-orange-600 font-bold">
                 Login
               </Link>

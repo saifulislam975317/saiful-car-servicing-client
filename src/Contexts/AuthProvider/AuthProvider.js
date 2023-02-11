@@ -3,15 +3,20 @@ import app from "../../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
+  const provider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +30,23 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const updateUserName = (name) => {
+    // setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+    });
+  };
+
+  const passwordReset = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  const loginWithGoogle = () => {
+    return signInWithPopup(auth, provider);
+  };
+
   const logOut = () => {
+    localStorage.removeItem("car-token");
     setLoading(true);
     signOut(auth);
   };
@@ -42,6 +63,9 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     createUser,
     login,
+    updateUserName,
+    passwordReset,
+    loginWithGoogle,
     logOut,
     user,
     loading,
