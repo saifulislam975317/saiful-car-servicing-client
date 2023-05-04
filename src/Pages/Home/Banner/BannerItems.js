@@ -9,7 +9,7 @@ const BannerItems = ({ slide }) => {
         <img src={image} alt="" className="w-full rounded-lg" />
       </div>
       <div className="absolute flex justify-end transform -translate-y-1/2 left-5  top-1/4">
-        <h1 className="text-6xl text-white">
+        <h1 className="lg:text-6xl text-3xl  text-white">
           Affordable
           <br />
           Price For Car
@@ -18,7 +18,7 @@ const BannerItems = ({ slide }) => {
         </h1>
       </div>
       <div className="absolute flex justify-end transform -translate-y-1/2 left-5 w-2/5 top-2/4">
-        <p className="text-xl text-white ">
+        <p className="text-xl text-white lg:block md:block hidden">
           There are many variations of passages of available, but the majority
           have suffered alteration in some form
         </p>
@@ -27,7 +27,7 @@ const BannerItems = ({ slide }) => {
         <button className="btn btn-warning mr-5">Discover More</button>
         <button className="btn btn-outline btn-warning">Latest Project</button>
       </div>
-      <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-5 bottom-10">
+      <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-5 lg:bottom-10 bottom-20">
         <a href={`#slide${prev}`} className="btn btn-circle mr-5 ">
           ❮
         </a>

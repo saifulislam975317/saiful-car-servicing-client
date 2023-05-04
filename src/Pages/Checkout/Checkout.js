@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 
@@ -35,9 +36,9 @@ const Checkout = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          alert("order placed successfully");
+          toast.success("Your order placed successfully.");
           form.reset();
-          navigate("/");
+          navigate("/orders");
         }
       })
       .catch((error) => console.error(error));
@@ -83,14 +84,14 @@ const Checkout = () => {
         </div>
         <textarea
           className="textarea textarea-success w-full mb-2"
-          placeholder="Your message here..."
+          placeholder="write your message here..."
           name="message"
           required
         ></textarea>
         <input
           className="btn btn-block btn-warning mb-5"
           type="submit"
-          value="order confirm"
+          value="Order confirm"
         />
       </form>
     </div>

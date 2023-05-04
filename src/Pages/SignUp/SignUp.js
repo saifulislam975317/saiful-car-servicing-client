@@ -143,9 +143,7 @@ const SignUp = () => {
               </div>
               <span className="text-lg text-red-700 text-center">{error}</span>
             </form>
-            <span className="text-center text-2xl">
-              <small>or</small>
-            </span>
+            <div className="divider">OR</div>
             <button onClick={handleGoogleSignUP} className="btn  btn-warning">
               Sign up with Google
             </button>

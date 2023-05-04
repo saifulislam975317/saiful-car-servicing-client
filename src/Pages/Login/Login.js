@@ -139,9 +139,7 @@ const Login = () => {
               Forgot Password
             </button>
 
-            <span className="text-center text-2xl">
-              <small>or</small>
-            </span>
+            <div className="divider">OR</div>
             <button onClick={handleGoogleLogin} className="btn  btn-warning">
               Login with Google
             </button>

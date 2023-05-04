@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../src/assets/logo.svg";
+import logo from "../../../src/assets/logo/car logo.png";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import "./Header.css";
 
@@ -9,13 +9,17 @@ const Header = () => {
 
   const handleSignOut = () => {
     logOut();
-    // .then(() => {})
-    // .catch((error) => console.error(error));
   };
   const menuItems = (
     <>
       <li>
         <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/services">Services</Link>
+      </li>
+      <li>
+        <Link to="/about">About us</Link>
       </li>
 
       <li>

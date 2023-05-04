@@ -1,6 +1,6 @@
 import React from "react";
-import person from "../../assets/images/about_us/person.jpg";
-import parts from "../../assets/images/about_us/parts.jpg";
+import person from "../../assets/pictures/car-1.jpg";
+import parts from "../../assets/pictures/car-3.jpg";
 
 const About = () => {
   return (
@@ -19,7 +19,7 @@ const About = () => {
           </div>
         </div>
         <div className="w-1/2">
-          <h4 className="text-xl font-bold text-orange-500">About Us</h4>
+          <h4 className="text-xl font-bold text-orange-500 mt-10">About Us</h4>
           <h1 className="text-5xl my-5">
             We are qualified <br />
             & of experience <br />
