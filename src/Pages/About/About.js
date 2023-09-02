@@ -1,10 +1,10 @@
 import React from "react";
-import person from "../../assets/pictures/car-1.jpg";
-import parts from "../../assets/pictures/car-3.jpg";
+import person from "../../assets/images/about_us/car-1.jpg";
+import parts from "../../assets/images/about_us/car-2.jpg";
 
 const About = () => {
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero  bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
         <div className="w-1/2 relative">
           <div className="w-3/4 h-full">
@@ -36,7 +36,6 @@ const About = () => {
             humour, or randomised words which don't look even slightly
             believable.
           </p>
-          <button className="btn btn-warning">Get More Info</button>
         </div>
       </div>
     </div>

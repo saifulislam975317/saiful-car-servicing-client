@@ -8,7 +8,7 @@ const Header = () => {
   const { user, logOut } = useContext(AuthContext);
 
   const handleSignOut = () => {
-    logOut();
+    logOut().then({});
   };
   const menuItems = (
     <>
@@ -27,9 +27,9 @@ const Header = () => {
       </li>
       <>
         {user?.uid ? (
-          <button onClick={handleSignOut} className="btn">
-            Logout
-          </button>
+          <li onClick={handleSignOut}>
+            <Link to="/login">Logout</Link>
+          </li>
         ) : (
           <li>
             <Link to="/login">Login</Link>
@@ -40,7 +40,7 @@ const Header = () => {
     </>
   );
   return (
-    <div data-theme="luxury" className="navbar p-5 mb-12 text-white">
+    <div data-theme="luxury" className="navbar p-5  text-white">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -72,9 +72,6 @@ const Header = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
-      </div>
-      <div className="navbar-end">
-        <button className="btn btn-outline btn-warning">Appointment</button>
       </div>
     </div>
   );
